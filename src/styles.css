@@ -103,3 +103,107 @@
     }
   }
 }
+
+.hero-stage {
+  background: rgb(var(--foreground));
+}
+
+.motif-grid {
+  background-image:
+    linear-gradient(45deg, rgb(var(--accent) / 0.18) 25%, transparent 25%),
+    linear-gradient(-45deg, rgb(var(--accent) / 0.14) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgb(var(--accent) / 0.16) 75%),
+    linear-gradient(-45deg, transparent 75%, rgb(var(--accent) / 0.12) 75%);
+  background-position: 0 0, 0 16px, 16px -16px, -16px 0;
+  background-size: 32px 32px;
+}
+
+.fabric-float {
+  animation: fabric-float 5.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.marquee-track {
+  animation: marquee-slide 24s linear infinite;
+}
+
+.motion-card {
+  animation: card-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+}
+
+.motion-card:hover {
+  transform: translateY(-8px) rotate(0.35deg);
+  border-color: rgb(var(--primary) / 0.35);
+  box-shadow: 0 18px 50px -18px rgb(var(--primary) / 0.35);
+}
+
+.product-card::after,
+.magnetic-btn::after {
+  content: "";
+  position: absolute;
+  inset: auto 12% -24px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgb(var(--primary) / 0.22);
+  filter: blur(18px);
+  opacity: 0;
+  transition: opacity 300ms ease, transform 300ms ease;
+  pointer-events: none;
+}
+
+.product-card:hover::after,
+.magnetic-btn:hover::after {
+  opacity: 1;
+  transform: translateY(8px);
+}
+
+.magnetic-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.magnetic-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgb(var(--accent) / 0.22), transparent);
+  transform: translateX(-120%);
+  transition: transform 550ms ease;
+}
+
+.magnetic-btn:hover::before {
+  transform: translateX(120%);
+}
+
+@keyframes fabric-float {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--tw-rotate));
+  }
+  50% {
+    transform: translateY(-18px) rotate(var(--tw-rotate));
+  }
+}
+
+@keyframes marquee-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
