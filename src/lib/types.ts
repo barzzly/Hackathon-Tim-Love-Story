@@ -1,16 +1,14 @@
 export type Category =
-  | "Kemeja"
-  | "Selendang"
-  | "Kain Lembaran"
-  | "Aksesori"
-  | "Outer";
+  | "Kain Katun"
+  | "Kain Sutra"
+  | "Kain Satin"
+  | "Selendang";
 
 export const CATEGORIES: Category[] = [
-  "Kemeja",
+  "Kain Katun",
+  "Kain Sutra",
+  "Kain Satin",
   "Selendang",
-  "Kain Lembaran",
-  "Aksesori",
-  "Outer",
 ];
 
 export interface Product {

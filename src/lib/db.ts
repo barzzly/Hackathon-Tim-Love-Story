@@ -9,7 +9,7 @@ import { SEED_PRODUCTS } from "../data/seed";
  * Semua halaman hanya memanggil fungsi di file ini; tidak tahu mode mana.
  */
 
-const LS_KEY = "sasirangan.products";
+const LS_KEY = "sasirangan.products.v2";
 
 function lsRead(): Product[] {
   try {
