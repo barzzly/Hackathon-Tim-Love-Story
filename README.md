@@ -1,164 +1,57 @@
-# Galeri Sasirangan
+# 🛶 Pasar Terapung Digital
 
-Website galeri produk sasirangan khas Banjar. Publik bisa melihat landing page dan galeri produk, sedangkan admin bisa login untuk menambah, mengubah, dan menghapus produk.
+> **Tema Hackathon:** Inovasi Digital Untuk Kemandirian UMKM Lokal
 
-App dibuat untuk tetap bisa jalan tanpa backend. Jika konfigurasi Supabase kosong, app masuk mode demo memakai seed data dan `localStorage`. Jika Supabase diisi, app memakai Postgres, Storage, dan Auth dari Supabase.
-
-## Fitur
-
-- Landing page dengan hero, nilai produk, dan koleksi unggulan.
-- Galeri produk responsif dengan pencarian dan filter kategori.
-- Lightbox foto produk dengan navigasi sebelumnya/berikutnya.
-- Deep link produk lewat query `?produk=<id>`.
-- Dark mode toggle dengan preferensi tersimpan.
-- Dashboard admin untuk CRUD produk.
-- Upload foto produk.
-- Toast notifikasi dan dialog konfirmasi hapus.
-- Skeleton loading, empty state, dan halaman 404.
-- Mode demo lokal tanpa Supabase.
+Platform storytelling imersif yang mengangkat UMKM Kalimantan/Banjar melalui
+pengalaman "berlayar" menyusuri sungai. Setiap UMKM adalah perahu terapung yang
+bisa dieksplorasi.
 
 ## Tech Stack
 
-- Vite
-- React
-- TypeScript
-- React Router
-- Tailwind CSS
-- lucide-react
-- Supabase
-- Vercel
+| Layer         | Tools                                |
+| ------------- | ------------------------------------ |
+| Framework     | Next.js 16 (App Router)              |
+| Language      | TypeScript (strict)                  |
+| Styling       | Tailwind CSS v4                      |
+| Components    | shadcn/ui (Radix primitives)         |
+| Animation     | Framer Motion + GSAP (ScrollTrigger) |
+| Smooth Scroll | Lenis                                |
+| Backend/DB    | Supabase (Postgres + Auth + Storage) |
+| Forms         | React Hook Form + Zod                |
+| Deploy        | Vercel                               |
 
-## Struktur Folder
-
-```txt
-src/
-  components/   Komponen UI reusable
-  data/         Seed produk demo
-  lib/          Auth, database, Supabase client, formatter, theme
-  pages/        Halaman utama app
-  App.tsx       Routing aplikasi
-  main.tsx      Entry React
-  styles.css    Tailwind dan design tokens
-
-supabase/
-  schema.sql    Skema tabel, policy, dan storage bucket
-```
-
-## Rute
-
-- `/` - beranda.
-- `/galeri` - galeri produk.
-- `/galeri?produk=<id>` - buka produk tertentu di lightbox.
-- `/login` - login admin.
-- `/admin` - dashboard admin, butuh login.
-- `/404` - halaman tidak ditemukan.
-
-## Instalasi
-
-Pastikan Node.js sudah terpasang.
+## Cara Run
 
 ```bash
+# 1. Install deps
 npm install
+
+# 2. Salin env, isi kredensial Supabase
+cp .env.example .env.local
+
+# 3. Jalankan dev server
 npm run dev
 ```
 
-Server dev berjalan lewat Vite. Buka URL yang muncul di terminal.
+Buka [http://localhost:3000](http://localhost:3000).
 
-## Environment
+## Environment Variables
 
-Salin `.env.example` menjadi `.env.local`.
+| Variable                        | Keterangan                          |
+| ------------------------------- | ----------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | URL project Supabase                |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Anon/public key project Supabase    |
 
-```bash
-VITE_SUPABASE_URL=
-VITE_SUPABASE_ANON_KEY=
-VITE_ADMIN_PASSWORD=admin123
-```
+## Scripts
 
-### Mode Demo
+| Command             | Fungsi                     |
+| ------------------- | -------------------------- |
+| `npm run dev`       | Dev server                 |
+| `npm run build`     | Production build           |
+| `npm run start`     | Serve production build     |
+| `npm run lint`      | ESLint                     |
+| `npm run typecheck` | `tsc --noEmit` type check  |
 
-Kosongkan `VITE_SUPABASE_URL` dan `VITE_SUPABASE_ANON_KEY`.
+## Struktur
 
-- Data produk diambil dari `src/data/seed.ts`.
-- Perubahan produk tersimpan di browser lewat `localStorage`.
-- Email admin bebas.
-- Password default: `admin123`.
-- Password bisa diganti lewat `VITE_ADMIN_PASSWORD`.
-
-Mode ini cocok untuk presentasi cepat atau penilaian hackathon.
-
-### Mode Supabase
-
-Isi:
-
-```bash
-VITE_SUPABASE_URL=isi_url_project_supabase
-VITE_SUPABASE_ANON_KEY=isi_anon_key_supabase
-```
-
-Lalu di Supabase:
-
-1. Jalankan `supabase/schema.sql` di SQL Editor.
-2. Buat user admin di Authentication.
-3. Pastikan bucket `product-images` sudah ada dan public.
-4. Login admin memakai email dan password user Supabase.
-
-## Script
-
-```bash
-npm run dev
-```
-
-Menjalankan dev server.
-
-```bash
-npm run build
-```
-
-Menjalankan TypeScript check dan membuat build produksi.
-
-```bash
-npm run preview
-```
-
-Preview hasil build produksi.
-
-## Deploy
-
-Project siap deploy ke Vercel.
-
-`vercel.json` sudah mengarahkan semua route SPA ke `index.html`, jadi deep link seperti `/galeri` dan `/admin` tetap aman saat refresh.
-
-Untuk mode Supabase di production, tambahkan environment variable ini di Vercel:
-
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-- `VITE_ADMIN_PASSWORD` jika masih memakai mode demo
-
-## Catatan Admin
-
-Produk punya field:
-
-- nama
-- deskripsi
-- harga, bisa kosong untuk status "Hubungi"
-- foto
-- kategori
-- status unggulan
-
-Kategori tersedia:
-
-- Kemeja
-- Selendang
-- Kain Lembaran
-- Aksesori
-- Outer
-
-## Build Check
-
-Sebelum deploy, jalankan:
-
-```bash
-npm run build
-```
-
-Jika sukses, folder `dist/` siap dipakai untuk hosting statis atau Vercel.
+Lihat `TODO.md` untuk roadmap lengkap dan target folder structure.
