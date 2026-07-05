@@ -1,17 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Brush,
-  HeartHandshake,
-  Leaf,
-  MessageCircle,
-  Palette,
-  Scissors,
-  Sparkles,
-  Star,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { Product } from "../lib/types";
 import { getProducts } from "../lib/db";
 import { whatsappLink } from "../lib/format";
@@ -19,24 +8,20 @@ import ProductCard from "../components/ProductCard";
 import SkeletonCard from "../components/SkeletonCard";
 import Lightbox from "../components/Lightbox";
 
-const WHY = [
+const VALUES = [
   {
-    icon: Palette,
     title: "Motif Khas Banjar",
-    text: "Gigi Haruan, Kambang Kacang, Ombak Sinapur, dan naskah motif turun-temurun Banjar.",
+    text: "Gigi Haruan, Kambang Kacang, Ombak Sinapur — naskah motif turun-temurun Banjar.",
   },
   {
-    icon: Scissors,
     title: "Jelujur Tangan",
-    text: "Pola dijahit manual, ditarik kuat, lalu dicelup warna. Setiap helai kain bernilai seni tinggi.",
+    text: "Pola dijahit manual, ditarik kuat, lalu dicelup warna. Tiap helai bernilai seni tinggi.",
   },
   {
-    icon: Leaf,
     title: "Bahan Premium",
-    text: "Pilihan kain katun primissima, sutra alam, dan satin berkilau yang nyaman dipakai.",
+    text: "Katun primissima, sutra alam, dan satin berkilau yang nyaman dipakai.",
   },
   {
-    icon: BadgeCheck,
     title: "Karya Orisinil",
     text: "Dibuat langsung oleh pengrajin lokal Banjarmasin dengan komitmen kualitas warisan.",
   },
@@ -51,42 +36,28 @@ const PROCESS = [
   {
     step: "02",
     title: "Jelujur & Ikat",
-    text: "Menjahit jelujur mengikuti pola gambar lalu ditarik erat hingga kain mengkerut rapat.",
+    text: "Menjahit jelujur mengikuti pola lalu ditarik erat hingga kain mengkerut rapat.",
   },
   {
     step: "03",
     title: "Pencelupan Warna",
-    text: "Mencelupkan kain ke larutan warna beberapa kali untuk hasil warna yang pekat dan dalam.",
+    text: "Mencelupkan kain ke larutan warna beberapa kali untuk hasil pekat dan dalam.",
   },
   {
     step: "04",
     title: "Buka & Bilas",
-    text: "Melepas benang jelujur untuk mengungkap motif putih yang kontras, lalu dibilas bersih.",
+    text: "Melepas benang jelujur untuk mengungkap motif putih yang kontras, lalu dibilas.",
   },
 ];
 
-const HERO_IMAGES = [
-  "/images/sasirangan-teal.svg",
-  "/images/sasirangan-amber.svg",
-  "/images/sasirangan-coral.svg",
-];
-
-const MARQUEE = [
-  "Kain Katun",
-  "Kain Sutra",
-  "Kain Satin",
-  "Selendang",
-  "Handmade Banjar",
-  "Pewarna Alami",
-  "Khas Kalimantan Selatan",
-];
+const HERO_IMAGE = "/images/sasirangan-indigo.svg";
 
 export default function Home() {
   const [featured, setFeatured] = useState<Product[] | null>(null);
   const [active, setActive] = useState<Product | null>(null);
 
   useEffect(() => {
-    document.title = "Galeri Sasirangan - Kain Tradisional Khas Banjar";
+    document.title = "Galeri Sasirangan — Kain Tradisional Khas Banjar";
     getProducts()
       .then((all) => {
         const f = all.filter((p) => p.isFeatured);
@@ -99,169 +70,147 @@ export default function Home() {
 
   return (
     <>
-      <section className="hero-stage relative isolate overflow-hidden bg-[#050606]">
-        <div className="absolute inset-0 -z-20 overflow-hidden" aria-hidden>
-          <div className="barzzly-grid absolute inset-0" />
-          <div className="barzzly-tiles absolute inset-0" />
-          <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#050606] via-[#050606]/78 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(20,184,166,0.18),transparent_32%),radial-gradient(circle_at_80%_20%,rgba(245,158,11,0.10),transparent_34%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(5,6,6,0.18)_45%,rgba(5,6,6,0.92)_100%)]" />
-        </div>
-
-        <div className="container-app grid min-h-[92dvh] items-center gap-12 pb-16 pt-28 text-white lg:grid-cols-[1fr_450px] lg:pb-24 lg:pt-32">
-          <div className="relative z-10">
-            <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm font-semibold text-teal-100 backdrop-blur-md">
-              <Sparkles className="h-4 w-4 text-accent animate-pulse" aria-hidden />
-              Koleksi Autentik Sasirangan Banjar
-            </div>
-            <h1 className="typing-title mt-6 max-w-5xl font-display text-[clamp(2.65rem,7vw,6.1rem)] font-black leading-[0.92] tracking-tight" aria-label="Keindahan Jelujur Tradisi">
-              <span className="typing-line typing-line-one">Keindahan Jelujur</span>
-              <span className="typing-line typing-line-two">Tradisi.</span>
+      {/* ── Hero .01 ─────────────────────────────── */}
+      <section className="relative overflow-hidden">
+        <div className="container-app grid min-h-[92dvh] items-center gap-12 pb-20 pt-32 lg:grid-cols-[1.1fr_0.9fr] lg:pt-36">
+          <div>
+            <p className="kicker">Galeri Sasirangan Banjar</p>
+            <h1 className="mt-6 font-display text-[clamp(2.8rem,8vw,6rem)] font-bold leading-[0.95] tracking-tight">
+              Keindahan
+              <br />
+              Jelujur Tradisi.
             </h1>
-            <p className="animate-fade-up text-soft-rise mt-6 max-w-2xl text-lg leading-relaxed text-white/72 sm:text-xl">
-              Galeri kain Sasirangan buatan tangan dari Banjarmasin. Menghadirkan kain premium berkualitas tinggi untuk dijahit sesuai kreasi busana Anda.
+            <p className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground">
+              Kain sasirangan buatan tangan dari Banjarmasin. Bahan premium
+              berkualitas tinggi, siap dijahit sesuai kreasi busana Anda.
             </p>
-            <div className="animate-fade-up mt-9 flex flex-wrap gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
               <Link
                 to="/galeri"
-                className="magnetic-btn inline-flex min-h-[52px] items-center gap-2.5 rounded-xl bg-primary px-7 py-3.5 font-bold text-white shadow-card transition-all hover:bg-primary/95 hover:-translate-y-0.5 border border-primary/10"
+                className="group inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-foreground"
               >
-                Lihat Galeri Kain <ArrowRight className="h-5 w-5" aria-hidden />
+                <span className="border-b border-foreground pb-1 transition-colors group-hover:border-accent group-hover:text-accent">
+                  Lihat Galeri Kain
+                </span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
               </Link>
               <a
                 href={whatsappLink()}
                 target="_blank"
                 rel="noreferrer"
-                className="magnetic-btn inline-flex min-h-[52px] items-center gap-2.5 rounded-xl border border-white/12 bg-white/8 px-7 py-3.5 font-semibold text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-white/12"
+                className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
               >
-                <MessageCircle className="h-5 w-5 text-primary" aria-hidden /> Tanya Pengrajin
+                Tanya Pengrajin
               </a>
             </div>
           </div>
 
-          <div className="relative hidden min-h-[500px] lg:block" aria-hidden>
-            {HERO_IMAGES.map((src, i) => (
-              <div
-                key={src}
-                className={`fabric-float absolute overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-2 shadow-card backdrop-blur-sm ${
-                  i === 0
-                    ? "left-0 top-6 h-72 w-56 rotate-[-8deg]"
-                    : i === 1
-                      ? "right-0 top-28 h-80 w-60 rotate-[7deg] [animation-delay:0.8s]"
-                      : "bottom-4 left-20 h-64 w-52 rotate-[3deg] [animation-delay:1.4s]"
-                }`}
-              >
-                <img src={src} alt="" className="h-full w-full rounded-xl object-cover" />
-              </div>
-            ))}
-            <div className="absolute bottom-20 right-12 rounded-2xl border border-white/12 bg-black/55 p-5 text-white shadow-card backdrop-blur-md">
-              <p className="font-display text-4xl font-black text-primary">8+</p>
-              <p className="mt-1 max-w-32 text-xs font-semibold uppercase tracking-wider text-white/60">
-                Motif Tradisional Ready
-              </p>
+          <div className="relative hidden lg:block">
+            <div className="image-fallback aspect-[3/4] overflow-hidden border border-border">
+              <img
+                src={HERO_IMAGE}
+                alt="Kain sasirangan khas Banjar"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-px left-0 flex items-end gap-3 bg-background py-3 pr-5">
+              <span className="font-display text-4xl font-bold text-foreground">8+</span>
+              <span className="max-w-24 pb-1 text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+                Motif tradisional ready
+              </span>
             </div>
           </div>
         </div>
 
-        <div className="border-y border-white/10 bg-black/45 py-4 text-white/75 backdrop-blur-sm">
-          <div className="marquee-track flex min-w-max gap-12 text-sm font-bold uppercase tracking-wider">
-            {[...MARQUEE, ...MARQUEE].map((item, index) => (
-              <span key={`${item}-${index}`} className="inline-flex items-center gap-3.5">
-                <Star className="h-4 w-4 fill-accent text-accent animate-spin-slow" aria-hidden />
-                {item}
-              </span>
-            ))}
-          </div>
+        <div className="container-app flex items-center justify-between border-t border-border py-4">
+          <span className="section-index">.01</span>
+          <span className="kicker">Scroll — Warisan Budaya Banjar</span>
         </div>
       </section>
 
-      <section id="kenapa" data-reveal className="container-app scroll-mt-20 py-24">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-primary">Warisan Budaya Banjar</p>
-            <h2 className="mt-3 font-display text-4xl font-black leading-none sm:text-5xl tracking-tight">
-              Galeri kecil untuk warisan besar.
-            </h2>
-          </div>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            Sasirangan bukan sekadar kain. Ia adalah goresan sejarah, rajutan benang jelujur, pencelupan warna, dan cerita Banjar. Kami memamerkan kain tradisional ini dalam detail visual tinggi agar keindahan serat dan warnanya terpancar sempurna.
+      {/* ── Tentang .02 ──────────────────────────── */}
+      <section id="tentang" data-reveal className="container-app scroll-mt-24 py-28">
+        <div className="flex items-center justify-between">
+          <p className="kicker">Tentang</p>
+          <span className="section-index">.02</span>
+        </div>
+
+        <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-end">
+          <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+            Galeri kecil untuk
+            <br />
+            warisan besar.
+          </h2>
+          <p className="text-base leading-relaxed text-muted-foreground">
+            Sasirangan bukan sekadar kain. Ia goresan sejarah — rajutan benang
+            jelujur, pencelupan warna, dan cerita Banjar. Kami memamerkannya dalam
+            detail visual tinggi agar keindahan serat dan warnanya terpancar
+            sempurna.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {WHY.map((w) => (
-            <div
-              key={w.title}
-              data-reveal-child className="group rounded-2xl border border-border bg-card p-6 shadow-soft transition-all duration-300 hover:border-primary/20 hover:shadow-card"
-            >
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary border border-primary/10 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
-                <w.icon className="h-5 w-5" aria-hidden />
-              </div>
-              <h3 className="mt-5 font-display text-xl font-bold">{w.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{w.text}</p>
+        <div className="mt-16 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {VALUES.map((v, i) => (
+            <div key={v.title} className="bg-background p-8">
+              <span className="section-index">{String(i + 1).padStart(2, "0")}</span>
+              <h3 className="mt-6 font-display text-lg font-semibold">{v.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{v.text}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section id="proses" data-reveal className="overflow-hidden bg-muted/40 py-24 border-y border-border/40">
-        <div className="container-app grid gap-12 lg:grid-cols-[450px_1fr] lg:items-center">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-primary">Proses Pembuatan</p>
-            <h2 className="mt-3 font-display text-4xl font-black leading-none sm:text-5xl tracking-tight">
-              Dari sketsa hingga motif nyata.
-            </h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
-              Setiap helai kain Sasirangan melewati empat tahapan penting yang menuntut ketelitian tinggi. Keterampilan tangan pengrajin memastikan kualitas warna tetap awet dan motif tetap bersih.
-            </p>
-            <Link
-              to="/galeri"
-              className="mt-8 inline-flex min-h-[48px] items-center gap-2 rounded-xl bg-primary px-6 py-3 font-semibold text-white shadow-soft transition-transform hover:-translate-y-0.5"
-            >
-              Jelajah Galeri Kain <ArrowRight className="h-5 w-5" aria-hidden />
-            </Link>
+      {/* ── Proses .03 ───────────────────────────── */}
+      <section id="proses" data-reveal className="scroll-mt-24 border-y border-border bg-surface/40 py-28">
+        <div className="container-app">
+          <div className="flex items-center justify-between">
+            <p className="kicker">Proses Pembuatan</p>
+            <span className="section-index">.03</span>
           </div>
+          <h2 className="mt-10 max-w-2xl font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+            Dari sketsa hingga motif nyata.
+          </h2>
 
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="mt-16 divide-y divide-border border-y border-border">
             {PROCESS.map((item) => (
               <div
                 key={item.step}
-                data-reveal-child className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-soft transition-all duration-300 hover:border-primary/20 hover:shadow-card"
+                className="group grid gap-4 py-8 transition-colors hover:bg-background sm:grid-cols-[auto_1fr] sm:items-baseline sm:gap-10"
               >
-                <div className="absolute -right-3 -top-5 font-display text-8xl font-black text-primary/5 transition-all duration-500 group-hover:scale-110 group-hover:text-primary/10">
+                <span className="font-display text-3xl font-medium text-muted-foreground/60 transition-colors group-hover:text-accent sm:w-24">
                   {item.step}
+                </span>
+                <div className="grid gap-3 sm:grid-cols-[1fr_2fr] sm:items-baseline sm:gap-10">
+                  <h3 className="font-display text-xl font-semibold">{item.title}</h3>
+                  <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
+                    {item.text}
+                  </p>
                 </div>
-                <Brush className="h-6 w-6 text-primary" aria-hidden />
-                <h3 className="mt-5 font-display text-xl font-bold">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {item.text}
-                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="koleksi" data-reveal className="container-app py-24">
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+      {/* ── Koleksi ──────────────────────────────── */}
+      <section id="koleksi" data-reveal className="container-app scroll-mt-24 py-28">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-primary">Karya Unggulan</p>
-            <h2 className="mt-3 font-display text-4xl font-black leading-none sm:text-5xl tracking-tight">
-              Koleksi paling mencuri mata.
+            <p className="kicker">Karya Unggulan</p>
+            <h2 className="mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+              Koleksi pilihan.
             </h2>
-            <p className="mt-3 text-muted-foreground">
-              Arahkan kursor Anda untuk melihat kilau pendaran cahaya, zoom detail, dan kualitas kain Sasirangan.
-            </p>
           </div>
           <Link
             to="/galeri"
-            className="inline-flex shrink-0 items-center gap-1.5 font-bold text-primary transition-colors hover:text-accent"
+            className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
           >
-            Semua produk <ArrowRight className="h-4 w-4" aria-hidden />
+            Semua Produk
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
           </Link>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {featured === null
             ? Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)
             : featured.map((p) => (
@@ -270,27 +219,30 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="kontak" data-reveal className="container-app py-16">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-card/50 px-6 py-16 text-foreground shadow-card sm:px-10 lg:px-16">
-          <div className="absolute inset-0 -z-10 aurora-bg opacity-30" aria-hidden />
-          <div className="absolute inset-0 -z-10 grid-bg-overlay [mask-image:radial-gradient(ellipse_at_center,white,transparent_80%)] opacity-30" aria-hidden />
-          <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+      {/* ── Kontak / Custom ──────────────────────── */}
+      <section id="kontak" data-reveal className="container-app scroll-mt-24 pb-28">
+        <div className="border border-border bg-surface/40 p-10 sm:p-16">
+          <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end">
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-primary">Pemesanan Khusus / Custom</p>
-              <h2 className="mt-3 max-w-3xl font-display text-4xl font-black leading-none sm:text-5xl tracking-tight">
+              <p className="kicker">Pemesanan Khusus</p>
+              <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
                 Cari motif tertentu untuk seragam atau hadiah?
               </h2>
-              <p className="mt-4 max-w-2xl text-muted-foreground">
-                Konsultasikan kebutuhan kain Sasirangan Anda langsung lewat WhatsApp. Tim kami siap membantu Anda memilih bahan kain, ukuran panjang, hingga rekomendasi motif Banjar yang cocok.
+              <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                Konsultasikan kebutuhan kain sasirangan Anda lewat WhatsApp. Kami
+                bantu memilih bahan, ukuran panjang, hingga rekomendasi motif Banjar.
               </p>
             </div>
             <a
               href={whatsappLink()}
               target="_blank"
               rel="noreferrer"
-              className="magnetic-btn relative inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3 font-semibold text-on-accent shadow-card transition-all hover:bg-accent/95 hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-3 justify-self-start text-xs font-medium uppercase tracking-[0.2em] text-accent lg:justify-self-end"
             >
-              <HeartHandshake className="h-5 w-5" aria-hidden /> Tanya Pesanan Kustom
+              <span className="border-b border-accent pb-1 transition-opacity group-hover:opacity-70">
+                Tanya Pesanan Kustom
+              </span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
             </a>
           </div>
         </div>
@@ -309,4 +261,3 @@ export default function Home() {
     </>
   );
 }
-

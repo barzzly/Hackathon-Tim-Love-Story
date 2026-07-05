@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Product } from "../lib/types";
 import { formatPrice } from "../lib/format";
 
@@ -11,32 +10,14 @@ interface Props {
 }
 
 export default function ProductCard({ product, onOpen }: Props) {
-  const cardRef = useRef<HTMLButtonElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${y}px`);
-  };
-
   return (
     <button
-      ref={cardRef}
       type="button"
       onClick={() => onOpen(product)}
-      onMouseMove={handleMouseMove}
-      data-reveal-child
-      className="glow-card glow-border tilt-card group relative flex min-h-full flex-col overflow-hidden rounded-2xl border border-border bg-card text-left shadow-soft focus-visible:shadow-card"
+      data-reveal-stagger
+      className="group flex flex-col text-left"
     >
-      <span className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <span className="absolute -left-1/2 top-0 h-full w-1/2 rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-1000 group-hover:translate-x-[260%]" />
-      </span>
-
-      <div className="image-fallback relative aspect-[4/5] overflow-hidden bg-muted">
+      <div className="image-fallback relative aspect-[4/5] overflow-hidden border border-border">
         <img
           src={product.imageUrl || FALLBACK_IMAGE}
           alt={`Kain sasirangan ${product.name}`}
@@ -47,37 +28,30 @@ export default function ProductCard({ product, onOpen }: Props) {
           }}
           width={900}
           height={1125}
-          className="h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:saturate-125"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/0 to-background/20 opacity-80 transition-opacity duration-500 group-hover:opacity-95" />
-        <span className="absolute left-3 top-3 rounded-xl border border-border/40 bg-background/85 px-3 py-1.5 text-xs font-semibold text-foreground shadow-soft backdrop-blur transition-all duration-300 group-hover:-translate-y-0.5">
-          {product.category}
-        </span>
         {product.isFeatured && (
-          <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-xl border border-accent/20 bg-accent px-3 py-1.5 text-xs font-bold text-on-accent shadow-soft transition-all duration-300 group-hover:-translate-y-0.5">
-            <Sparkles className="h-3.5 w-3.5" aria-hidden /> Unggulan
+          <span className="absolute left-0 top-4 bg-accent px-3 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-on-accent">
+            Unggulan
           </span>
         )}
-        <span className="absolute bottom-3.5 right-3.5 inline-flex h-10 w-10 translate-y-3 items-center justify-center rounded-xl border border-primary/20 bg-primary text-on-primary opacity-0 shadow-card transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+        <span className="absolute bottom-4 right-4 inline-flex h-9 w-9 translate-y-2 items-center justify-center border border-foreground/20 bg-background/70 text-foreground opacity-0 backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
           <ArrowUpRight className="h-4 w-4" aria-hidden />
         </span>
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col p-5">
-        <h3 className="font-display text-xl font-bold leading-snug transition-colors duration-300 group-hover:text-primary">
-          {product.name}
-        </h3>
-        <p className="mt-2 line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-          {product.description}
-        </p>
-        <div className="mt-5 flex items-center justify-between gap-3 border-t border-border/40 pt-3">
-          <p className="font-semibold text-primary [font-variant-numeric:tabular-nums]">
-            {formatPrice(product.price)}
+      <div className="mt-4 flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            {product.category}
           </p>
-          <span className="text-xs font-bold uppercase text-muted-foreground transition-colors duration-300 group-hover:text-accent">
-            Detail -&gt;
-          </span>
+          <h3 className="mt-1.5 truncate font-display text-base font-semibold transition-colors group-hover:text-accent">
+            {product.name}
+          </h3>
         </div>
+        <p className="shrink-0 pt-4 text-sm text-muted-foreground [font-variant-numeric:tabular-nums]">
+          {formatPrice(product.price)}
+        </p>
       </div>
     </button>
   );

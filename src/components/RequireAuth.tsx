@@ -19,7 +19,7 @@ export default function RequireAuth({ children }: { children: ReactNode }) {
   if (state === "checking") {
     return (
       <div className="flex min-h-[60dvh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" aria-label="Memuat" />
+        <Loader2 className="h-6 w-6 animate-spin text-accent" aria-label="Memuat" />
       </div>
     );
   }

@@ -62,17 +62,17 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         {items.map((t) => (
           <div
             key={t.id}
-            className="animate-fade-up pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-xl border border-border bg-card px-4 py-3 text-card-foreground shadow-card"
+            className="animate-fade-up pointer-events-auto flex w-full max-w-sm items-start gap-3 border border-border bg-surface px-4 py-3 text-foreground shadow-card"
           >
             {t.kind === "success" ? (
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden />
             ) : (
               <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-destructive" aria-hidden />
             )}
             <p className="flex-1 text-sm leading-relaxed">{t.message}</p>
             <button
               onClick={() => remove(t.id)}
-              className="shrink-0 rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="shrink-0 p-1 text-muted-foreground transition-colors hover:text-foreground"
               aria-label="Tutup notifikasi"
             >
               <X className="h-4 w-4" aria-hidden />

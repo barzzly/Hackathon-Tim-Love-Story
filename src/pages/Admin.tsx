@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Plus, Pencil, Trash2, LogOut, PackageOpen, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, Loader2 } from "lucide-react";
 import type { Product, ProductInput } from "../lib/types";
 import {
   getProducts,
@@ -24,7 +24,7 @@ export default function Admin() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    document.title = "Dashboard Admin - Sasirangan";
+    document.title = "Dashboard Admin — Sasirangan";
     load();
   }, []);
 
@@ -85,102 +85,91 @@ export default function Admin() {
   }
 
   return (
-    <div className="container-app py-10">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="container-app pt-32 pb-24">
+      <div className="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold tracking-tight">
-            Dashboard Admin
+          <p className="kicker">Dashboard</p>
+          <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+            Kelola Produk
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Kelola produk galeri.{" "}
-            {isDemoAuth && (
-              <span className="text-primary">Mode demo - data tersimpan di browser ini.</span>
-            )}
-          </p>
+          {isDemoAuth && (
+            <p className="mt-3 text-xs text-muted-foreground">
+              Mode demo — data tersimpan di browser ini.
+            </p>
+          )}
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-6">
           <button
             onClick={openCreate}
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-primary px-4 font-semibold text-on-primary transition-opacity hover:opacity-90"
+            className="group inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-foreground"
           >
-            <Plus className="h-5 w-5" aria-hidden /> Tambah Produk
+            <Plus className="h-4 w-4 transition-transform group-hover:rotate-90" aria-hidden />
+            <span className="border-b border-foreground pb-1 transition-colors group-hover:border-accent group-hover:text-accent">
+              Tambah Produk
+            </span>
           </button>
-          {/* Logout dipisah jauh dari aksi utama */}
           <button
             onClick={onLogout}
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-border px-4 font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
           >
-            <LogOut className="h-5 w-5" aria-hidden /> Keluar
+            <LogOut className="h-4 w-4" aria-hidden /> Keluar
           </button>
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-12">
         {products === null ? (
           <div className="flex min-h-[40dvh] items-center justify-center">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" aria-label="Memuat" />
+            <Loader2 className="h-6 w-6 animate-spin text-accent" aria-label="Memuat" />
           </div>
         ) : products.length === 0 ? (
-          <div className="flex flex-col items-center rounded-2xl border border-dashed border-border py-20 text-center">
-            <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
-              <PackageOpen className="h-7 w-7" aria-hidden />
-            </div>
-            <h2 className="mt-4 font-display text-xl font-bold">Belum ada produk</h2>
-            <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-              Klik "Tambah Produk" untuk mengunggah produk pertama.
+          <div className="border border-dashed border-border py-24 text-center">
+            <p className="section-index">—</p>
+            <h2 className="mt-4 font-display text-xl font-semibold">Belum ada produk</h2>
+            <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">
+              Klik “Tambah Produk” untuk mengunggah produk pertama.
             </p>
-            <button
-              onClick={openCreate}
-              className="mt-6 inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-primary px-4 font-semibold text-on-primary"
-            >
-              <Plus className="h-5 w-5" aria-hidden /> Tambah Produk
-            </button>
           </div>
         ) : (
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="divide-y divide-border border-y border-border">
             {products.map((p) => (
-              <li
-                key={p.id}
-                className="flex gap-4 rounded-2xl border border-border bg-card p-3 shadow-soft"
-              >
+              <div key={p.id} className="flex items-center gap-5 py-4">
                 <img
                   src={p.imageUrl}
                   alt=""
-                  onError={(event) => { event.currentTarget.src = "/images/sasirangan-teal.svg"; }}
-                  className="h-24 w-20 shrink-0 rounded-xl object-cover"
+                  onError={(event) => {
+                    event.currentTarget.src = "/images/sasirangan-teal.svg";
+                  }}
+                  className="image-fallback h-20 w-16 shrink-0 border border-border object-cover"
                   aria-hidden
                 />
-                <div className="flex min-w-0 flex-1 flex-col">
-                  <div className="flex items-start gap-2">
-                    <h3 className="flex-1 truncate font-display font-bold">{p.name}</h3>
-                    {p.isFeatured && (
-                      <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-semibold text-on-accent">
-                        Unggulan
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-xs text-muted-foreground">{p.category}</p>
-                  <p className="mt-0.5 text-sm font-semibold text-primary [font-variant-numeric:tabular-nums]">
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    {p.category}
+                    {p.isFeatured && <span className="ml-2 text-accent">Unggulan</span>}
+                  </p>
+                  <h3 className="mt-1 truncate font-display font-semibold">{p.name}</h3>
+                  <p className="mt-0.5 text-sm text-muted-foreground [font-variant-numeric:tabular-nums]">
                     {formatPrice(p.price)}
                   </p>
-                  <div className="mt-auto flex gap-1 pt-2">
-                    <button
-                      onClick={() => openEdit(p)}
-                      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-lg border border-border px-3 text-sm font-medium transition-colors hover:bg-muted"
-                    >
-                      <Pencil className="h-4 w-4" aria-hidden /> Edit
-                    </button>
-                    <button
-                      onClick={() => setToDelete(p)}
-                      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-lg border border-border px-3 text-sm font-medium text-destructive transition-colors hover:bg-destructive/10"
-                    >
-                      <Trash2 className="h-4 w-4" aria-hidden /> Hapus
-                    </button>
-                  </div>
                 </div>
-              </li>
+                <div className="flex shrink-0 items-center gap-4">
+                  <button
+                    onClick={() => openEdit(p)}
+                    className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <Pencil className="h-4 w-4" aria-hidden /> Edit
+                  </button>
+                  <button
+                    onClick={() => setToDelete(p)}
+                    className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-destructive"
+                  >
+                    <Trash2 className="h-4 w-4" aria-hidden /> Hapus
+                  </button>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
 

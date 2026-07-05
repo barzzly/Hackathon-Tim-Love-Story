@@ -1,40 +1,30 @@
 import { Link } from "react-router-dom";
-import { MessageCircle, MapPin, AtSign } from "lucide-react";
 import { whatsappLink } from "../lib/format";
 
 export default function Footer() {
   return (
-    <footer className="mt-24 border-t border-border bg-muted/40">
-      <div className="container-app grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-3">
-        <div>
-          <div className="flex items-center gap-2 font-display text-lg font-bold">
-            <svg viewBox="0 0 32 32" className="h-6 w-6" aria-hidden>
-              <rect width="32" height="32" rx="7" className="fill-primary" />
-              <g fill="none" className="stroke-accent" strokeWidth="1.6" strokeLinejoin="round">
-                <path d="M16 5 L27 16 L16 27 L5 16 Z" />
-                <path d="M16 11 L21 16 L16 21 L11 16 Z" />
-              </g>
-            </svg>
+    <footer className="mt-32 border-t border-border">
+      <div className="container-app grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="lg:col-span-2">
+          <p className="font-display text-sm font-bold uppercase tracking-[0.3em]">
             Sasirangan
-          </div>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Kain sasirangan handmade khas Banjarmasin. Motif tradisional, warna
-            alami, tiap helai dibuat dengan tangan.
+          </p>
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            Galeri kain sasirangan handmade khas Banjarmasin. Motif tradisional,
+            warna alami, tiap helai dibuat dengan tangan.
           </p>
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground">
-            Jelajah
-          </h2>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+          <p className="kicker">Jelajah</p>
+          <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
             <li>
-              <Link to="/" className="transition-colors hover:text-primary">
+              <Link to="/" className="transition-colors hover:text-foreground">
                 Beranda
               </Link>
             </li>
             <li>
-              <Link to="/galeri" className="transition-colors hover:text-primary">
+              <Link to="/galeri" className="transition-colors hover:text-foreground">
                 Galeri Produk
               </Link>
             </li>
@@ -42,18 +32,16 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground">
-            Kontak
-          </h2>
-          <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+          <p className="kicker">Kontak</p>
+          <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
             <li>
               <a
                 href={whatsappLink()}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 transition-colors hover:text-primary"
+                className="transition-colors hover:text-foreground"
               >
-                <MessageCircle className="h-4 w-4" aria-hidden /> WhatsApp
+                WhatsApp
               </a>
             </li>
             <li>
@@ -61,21 +49,19 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 transition-colors hover:text-primary"
+                className="transition-colors hover:text-foreground"
               >
-                <AtSign className="h-4 w-4" aria-hidden /> Instagram
+                Instagram
               </a>
             </li>
-            <li className="inline-flex items-center gap-2">
-              <MapPin className="h-4 w-4" aria-hidden /> Banjarmasin, Kalimantan Selatan
-            </li>
+            <li>Banjarmasin, Kalimantan Selatan</li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-border py-5">
-        <p className="container-app text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Galeri Sasirangan. Dibuat untuk melestarikan
-          warisan Banjar.
+
+      <div className="border-t border-border py-6">
+        <p className="container-app text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          © {new Date().getFullYear()} Galeri Sasirangan
         </p>
       </div>
     </footer>

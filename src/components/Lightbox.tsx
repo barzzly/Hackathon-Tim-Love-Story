@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { X, ChevronLeft, ChevronRight, MessageCircle, Share2 } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ArrowRight, Share2 } from "lucide-react";
 import type { Product } from "../lib/types";
 import { formatPrice, whatsappLink } from "../lib/format";
 import { useToast } from "./Toast";
@@ -63,14 +63,10 @@ export default function Lightbox({
       aria-modal="true"
       aria-label={product.name}
     >
-      <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={onClose}
-        aria-hidden
-      />
+      <div className="absolute inset-0 bg-background/90 backdrop-blur-sm" onClick={onClose} aria-hidden />
 
-      <div className="animate-fade-up relative z-10 flex max-h-[90dvh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-card md:flex-row">
-        <div className="image-fallback relative bg-muted md:w-3/5">
+      <div className="animate-fade-up relative z-10 flex max-h-[90dvh] w-full max-w-4xl flex-col overflow-hidden border border-border bg-background md:flex-row">
+        <div className="image-fallback relative bg-surface md:w-3/5">
           <img
             src={product.imageUrl || FALLBACK_IMAGE}
             alt={`Kain sasirangan ${product.name}`}
@@ -84,45 +80,46 @@ export default function Lightbox({
           {hasNext && <NavArrow side="right" onClick={onNext} label="Produk berikutnya" />}
         </div>
 
-        <div className="flex flex-1 flex-col overflow-y-auto p-6">
+        <div className="flex flex-1 flex-col overflow-y-auto p-8">
           <div className="flex items-start justify-between gap-3">
-            <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
-              {product.category}
-            </span>
+            <span className="kicker pt-1">{product.category}</span>
             <button
               ref={closeRef}
               onClick={onClose}
-              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
               aria-label="Tutup"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
 
-          <h2 className="mt-3 font-display text-2xl font-bold leading-tight">
+          <h2 className="mt-5 font-display text-2xl font-bold leading-tight">
             {product.name}
           </h2>
-          <p className="mt-1 text-xl font-semibold text-primary [font-variant-numeric:tabular-nums]">
+          <p className="mt-2 text-lg text-accent [font-variant-numeric:tabular-nums]">
             {formatPrice(product.price)}
           </p>
-          <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-6 flex-1 text-sm leading-relaxed text-muted-foreground">
             {product.description}
           </p>
 
-          <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+          <div className="mt-8 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
             <a
               href={whatsappLink(product.name)}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 font-semibold text-on-primary transition-opacity hover:opacity-90"
+              className="group inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-foreground"
             >
-              <MessageCircle className="h-5 w-5" aria-hidden /> Tanya Produk
+              <span className="border-b border-foreground pb-1 transition-colors group-hover:border-accent group-hover:text-accent">
+                Tanya Produk
+              </span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
             </a>
             <button
               onClick={share}
-              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-border px-4 py-3 font-medium transition-colors hover:bg-muted"
+              className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
             >
-              <Share2 className="h-5 w-5" aria-hidden /> Bagikan
+              <Share2 className="h-4 w-4" aria-hidden /> Bagikan
             </button>
           </div>
         </div>
@@ -146,10 +143,10 @@ function NavArrow({
       onClick={onClick}
       aria-label={label}
       className={`absolute top-1/2 -translate-y-1/2 ${
-        side === "left" ? "left-2" : "right-2"
-      } inline-flex h-11 w-11 items-center justify-center rounded-full bg-background/80 text-foreground shadow-soft backdrop-blur transition-colors hover:bg-background`}
+        side === "left" ? "left-3" : "right-3"
+      } inline-flex h-10 w-10 items-center justify-center border border-border bg-background/70 text-foreground backdrop-blur transition-colors hover:border-accent hover:text-accent`}
     >
-      <Icon className="h-6 w-6" />
+      <Icon className="h-5 w-5" />
     </button>
   );
 }

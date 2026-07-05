@@ -14,6 +14,9 @@ interface Props {
 const MAX_MB = 5;
 const ACCEPT = ["image/jpeg", "image/png", "image/webp"];
 
+const inputClass =
+  "w-full border-b border-border bg-transparent py-2.5 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-accent";
+
 export default function ProductForm({ initial, onSubmit, onClose }: Props) {
   const toast = useToast();
   const [name, setName] = useState(initial?.name ?? "");
@@ -93,45 +96,48 @@ export default function ProductForm({ initial, onSubmit, onClose }: Props) {
       aria-modal="true"
       aria-label={initial ? "Edit produk" : "Tambah produk"}
     >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} aria-hidden />
-      <div className="animate-fade-up relative z-10 flex max-h-[92dvh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-card">
-        <div className="flex items-center justify-between border-b border-border p-5">
-          <h2 className="font-display text-xl font-bold">
-            {initial ? "Edit Produk" : "Tambah Produk"}
-          </h2>
+      <div className="absolute inset-0 bg-background/90 backdrop-blur-sm" onClick={onClose} aria-hidden />
+      <div className="animate-fade-up relative z-10 flex max-h-[92dvh] w-full max-w-lg flex-col overflow-hidden border border-border bg-background">
+        <div className="flex items-center justify-between border-b border-border p-6">
+          <div>
+            <p className="kicker">{initial ? "Ubah" : "Baru"}</p>
+            <h2 className="mt-1.5 font-display text-lg font-semibold">
+              {initial ? "Edit Produk" : "Tambah Produk"}
+            </h2>
+          </div>
           <button
             onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="inline-flex h-10 w-10 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
             aria-label="Tutup"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        <form onSubmit={submit} className="flex-1 space-y-5 overflow-y-auto p-5" noValidate>
+        <form onSubmit={submit} className="flex-1 space-y-6 overflow-y-auto p-6" noValidate>
           {/* Foto */}
           <div>
-            <span className="mb-1.5 block text-sm font-medium">
+            <span className="kicker mb-3 block">
               Foto Produk <span className="text-destructive">*</span>
             </span>
             <div className="flex items-start gap-4">
-              <div className="relative h-28 w-24 shrink-0 overflow-hidden rounded-xl border border-border bg-muted">
+              <div className="image-fallback relative h-28 w-24 shrink-0 overflow-hidden border border-border">
                 {imageUrl ? (
                   <img src={imageUrl} alt="Pratinjau" className="h-full w-full object-cover" />
                 ) : (
                   <div className="flex h-full items-center justify-center text-muted-foreground">
-                    <ImageIcon className="h-8 w-8" aria-hidden />
+                    <ImageIcon className="h-7 w-7" aria-hidden />
                   </div>
                 )}
               </div>
               <div className="flex-1">
-                <label className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted">
+                <label className="inline-flex cursor-pointer items-center gap-2 border border-border px-4 py-2 text-[11px] font-medium uppercase tracking-[0.15em] transition-colors hover:border-accent hover:text-accent">
                   {uploading ? (
                     <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
                   ) : (
                     <Upload className="h-4 w-4" aria-hidden />
                   )}
-                  {uploading ? "Mengunggah..." : imageUrl ? "Ganti foto" : "Pilih foto"}
+                  {uploading ? "Mengunggah" : imageUrl ? "Ganti Foto" : "Pilih Foto"}
                   <input
                     type="file"
                     accept={ACCEPT.join(",")}
@@ -140,11 +146,11 @@ export default function ProductForm({ initial, onSubmit, onClose }: Props) {
                     className="sr-only"
                   />
                 </label>
-                <p className="mt-1.5 text-xs text-muted-foreground">
+                <p className="mt-2 text-xs text-muted-foreground">
                   JPG, PNG, WebP. Maks {MAX_MB}MB.
                 </p>
                 {errors.image && (
-                  <p role="alert" className="mt-1 text-sm font-medium text-destructive">
+                  <p role="alert" className="mt-1.5 text-xs text-destructive">
                     {errors.image}
                   </p>
                 )}
@@ -154,7 +160,7 @@ export default function ProductForm({ initial, onSubmit, onClose }: Props) {
 
           {/* Nama */}
           <div>
-            <label htmlFor="pf-name" className="mb-1.5 block text-sm font-medium">
+            <label htmlFor="pf-name" className="kicker mb-2 block">
               Nama <span className="text-destructive">*</span>
             </label>
             <input
@@ -166,11 +172,11 @@ export default function ProductForm({ initial, onSubmit, onClose }: Props) {
                 if (errors.name) setErrors((x) => ({ ...x, name: undefined }));
               }}
               aria-invalid={Boolean(errors.name)}
-              className="h-12 w-full rounded-xl border border-border bg-background px-4 outline-none transition-colors focus:border-primary"
+              className={inputClass}
               placeholder="Kain Sasirangan Gigi Haruan"
             />
             {errors.name && (
-              <p role="alert" className="mt-1 text-sm font-medium text-destructive">
+              <p role="alert" className="mt-1.5 text-xs text-destructive">
                 {errors.name}
               </p>
             )}
@@ -178,7 +184,7 @@ export default function ProductForm({ initial, onSubmit, onClose }: Props) {
 
           {/* Deskripsi */}
           <div>
-            <label htmlFor="pf-desc" className="mb-1.5 block text-sm font-medium">
+            <label htmlFor="pf-desc" className="kicker mb-2 block">
               Deskripsi
             </label>
             <textarea
@@ -186,15 +192,15 @@ export default function ProductForm({ initial, onSubmit, onClose }: Props) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors focus:border-primary"
+              className="w-full resize-none border-b border-border bg-transparent py-2.5 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-accent"
               placeholder="Motif, bahan, ukuran..."
             />
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             {/* Harga */}
             <div>
-              <label htmlFor="pf-price" className="mb-1.5 block text-sm font-medium">
+              <label htmlFor="pf-price" className="kicker mb-2 block">
                 Harga (Rp)
               </label>
               <input
@@ -204,24 +210,24 @@ export default function ProductForm({ initial, onSubmit, onClose }: Props) {
                 inputMode="numeric"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="h-12 w-full rounded-xl border border-border bg-background px-4 outline-none transition-colors focus:border-primary"
-                placeholder="Kosongkan = Hubungi"
+                className={inputClass}
+                placeholder="Kosong = Hubungi"
               />
             </div>
 
             {/* Kategori */}
             <div>
-              <label htmlFor="pf-cat" className="mb-1.5 block text-sm font-medium">
+              <label htmlFor="pf-cat" className="kicker mb-2 block">
                 Kategori
               </label>
               <select
                 id="pf-cat"
                 value={category}
                 onChange={(e) => setCategory(e.target.value as Category)}
-                className="h-12 w-full rounded-xl border border-border bg-background px-3 outline-none transition-colors focus:border-primary"
+                className="w-full border-b border-border bg-transparent py-2.5 text-sm outline-none transition-colors focus:border-accent"
               >
                 {CATEGORIES.map((c) => (
-                  <option key={c} value={c}>
+                  <option key={c} value={c} className="bg-background">
                     {c}
                   </option>
                 ))}
@@ -235,29 +241,29 @@ export default function ProductForm({ initial, onSubmit, onClose }: Props) {
               type="checkbox"
               checked={isFeatured}
               onChange={(e) => setIsFeatured(e.target.checked)}
-              className="h-5 w-5 rounded border-border text-primary focus:ring-primary"
+              className="h-4 w-4 border-border bg-transparent text-accent focus:ring-accent"
             />
-            <span className="text-sm font-medium">
+            <span className="text-sm text-muted-foreground">
               Tandai sebagai produk unggulan (tampil di beranda)
             </span>
           </label>
         </form>
 
-        <div className="flex flex-col-reverse gap-2 border-t border-border p-5 sm:flex-row sm:justify-end">
+        <div className="flex items-center justify-end gap-6 border-t border-border p-6">
           <button
             onClick={onClose}
             disabled={busy}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-border px-5 font-medium transition-colors hover:bg-muted disabled:opacity-50"
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
           >
             Batal
           </button>
           <button
             onClick={submit}
             disabled={busy || uploading}
-            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-primary px-5 font-semibold text-on-primary transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 bg-foreground px-6 text-[11px] font-medium uppercase tracking-[0.2em] text-background transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {busy && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
-            {busy ? "Menyimpan..." : initial ? "Simpan Perubahan" : "Tambah Produk"}
+            {busy ? "Menyimpan" : initial ? "Simpan" : "Tambah"}
           </button>
         </div>
       </div>
