@@ -167,7 +167,7 @@ export default function ProductForm({ initial, onSubmit, onClose }: Props) {
               }}
               aria-invalid={Boolean(errors.name)}
               className="h-12 w-full rounded-xl border border-border bg-background px-4 outline-none transition-colors focus:border-primary"
-              placeholder="Kemeja Sasirangan Gigi Haruan"
+              placeholder="Kain Sasirangan Gigi Haruan"
             />
             {errors.name && (
               <p role="alert" className="mt-1 text-sm font-medium text-destructive">
