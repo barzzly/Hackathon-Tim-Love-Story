@@ -196,28 +196,28 @@ Gabungan Apple × Stripe × Linear × Awwwards. Premium, minimal, immersive, sto
 
 ## Phase 1 — Project Setup
 
-- [ ] `npx create-next-app@latest` — TypeScript, App Router, Tailwind, `src/`, alias `@/*`.
-- [ ] Set `tsconfig.json` ke `"strict": true`.
-- [ ] Install deps: `framer-motion gsap lenis @supabase/supabase-js @supabase/ssr react-hook-form zod @hookform/resolvers`.
-- [ ] Init shadcn/ui: `npx shadcn@latest init`. Tambah komponen dasar: `button input textarea label select dialog dropdown-menu sonner`.
-- [ ] Setup fonts via `next/font` (serif display + sans body).
-- [ ] Buat `.env.example` + `.env.local` (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`).
-- [ ] Konfigurasi `next.config.ts`: `images.remotePatterns` untuk Supabase storage domain.
-- [ ] Buat folder structure sesuai target di atas.
-- [ ] Setup ESLint + Prettier + `.gitignore`.
-- [ ] `README.md` awal (nama, konsep, cara run).
-- [ ] Commit: `chore: initial project setup`.
+- [x] `npx create-next-app@latest` — TypeScript, App Router, Tailwind, `src/`, alias `@/*`. (Next 16, Tailwind v4)
+- [x] Set `tsconfig.json` ke `"strict": true`. (default on)
+- [x] Install deps: `framer-motion gsap lenis @supabase/supabase-js @supabase/ssr react-hook-form zod @hookform/resolvers`.
+- [x] Init shadcn/ui: `npx shadcn@latest init`. Tambah komponen dasar: `button input textarea label select dialog dropdown-menu sonner`.
+- [x] Setup fonts via `next/font` (Fraunces display + Inter body).
+- [x] Buat `.env.example` + `.env.local` (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`).
+- [x] Konfigurasi `next.config.ts`: `images.remotePatterns` untuk Supabase storage domain.
+- [x] Buat folder structure sesuai target di atas.
+- [x] Setup ESLint + `.gitignore`. (Prettier: skip — ESLint flat config cukup)
+- [x] `README.md` awal (nama, konsep, cara run).
+- [x] Commit: `chore: initial project setup`. (825ab06)
 
 ## Phase 2 — Design System
 
-- [ ] Definisikan CSS variables (color, typography, radius, shadow) di `globals.css`.
-- [ ] Extend `tailwind.config.ts` dengan token warna & fontFamily.
-- [ ] Buat util `cn()` di `lib/utils.ts`.
-- [ ] Buat `formatRupiah(n: number)` di `lib/utils.ts`.
-- [ ] Build primitive components (Button, Card, Input, Badge, Container, Section) sesuai spec.
-- [ ] Buat halaman `/dev/styleguide` (opsional, hapus sebelum submit) untuk cek visual semua komponen.
-- [ ] Setup `Toaster` (sonner) di root layout.
-- [ ] Commit: `feat: design system & base components`.
+- [x] Definisikan CSS variables (color, typography, radius, shadow) di `globals.css`. (river/sunset palette, fluid type, glass utils)
+- [x] Extend token warna & fontFamily. (Tailwind v4 CSS-first `@theme inline` — no `tailwind.config.ts`)
+- [x] Buat util `cn()` di `lib/utils.ts`.
+- [x] Buat `formatRupiah(n: number)` di `lib/utils.ts`. (+ `slugify`)
+- [x] Build primitive components (Button, Card, Input, Badge, Container, Section) sesuai spec.
+- [x] Buat halaman `/dev/styleguide` (opsional, hapus sebelum submit) untuk cek visual semua komponen.
+- [x] Setup `Toaster` (sonner) di root layout. (Phase 1: layout.tsx)
+- [x] Commit: `feat: design system & base components`.
 
 ## Phase 3 — Landing Page (Hero Cinematic)
 
