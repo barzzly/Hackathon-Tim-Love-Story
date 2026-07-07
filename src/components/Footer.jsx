@@ -44,6 +44,8 @@ function Footer() {
             <h3 className="footer-col-title">Explore</h3>
             <ul className="footer-col-links">
               <li><Link to="/">Home</Link></li>
+              <li><a href="/#about">About</a></li>
+              <li><a href="/#philosophy">Philosophy</a></li>
               <li><Link to="/store">Store</Link></li>
             </ul>
           </div>

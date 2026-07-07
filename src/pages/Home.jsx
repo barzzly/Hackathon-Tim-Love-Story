@@ -21,6 +21,7 @@ const goldKeyword = 'berani'
 const navLinks = [
   ['Home', '#home', false],
   ['About', '#about', false],
+  ['Philosophy', '#philosophy', false],
   ['Store', '#store', false],
 ]
 
@@ -52,6 +53,24 @@ const featureCards = [
   ['01', 'Sasirangan Fabric', 'Bahan dan motif khas Kalimantan jadi bahasa visual utama.'],
   ['02', 'Oversized Fit', 'Siluet loose, bold, nyaman untuk gerak harian.'],
   ['03', 'Street Detail', 'Kontras grafis, layering, dan finishing modern.'],
+]
+
+const historyData = [
+  {
+    year: '12TH CENTURY',
+    title: 'Akar Tradisional',
+    content: 'Sasirangan awalnya adalah kain sakral untuk penyembuhan dan upacara adat di Kalimantan Selatan. Warna-warna alami menceritakan kisah magis dan doa.'
+  },
+  {
+    year: 'VISUAL CULTURE',
+    title: 'Motif & Alam',
+    content: 'Motif Sasirangan terinspirasi dari alam Kalimantan. Mulai dari motif Bayam Raja (simbol kedudukan), Gigi Haruan (simbol ketajaman berpikir), hingga Kambang Kacang (simbol persahabatan). Setiap garis adalah cerita.'
+  },
+  {
+    year: '2026 - PRESENT',
+    title: 'Street Reborn',
+    content: 'Kini, Sasira membawa DNA kuno ini ke jalanan. Oversized cuts, raw materials, dan streetwear vibes berpadu dengan motif sakral. Ini bukan sekadar fashion, ini adalah perlawanan kultural yang menjaga warisan tetap hidup dan bernapas.'
+  }
 ]
 
 // Only in-page anchors highlight on scroll; route links (Store) are excluded.
@@ -453,23 +472,26 @@ Apakah produk ini masih tersedia? Terima kasih!`
         <p className="mobile-menu-foot">SASIRA - Sasirangan Street Wear / 2026</p>
       </div>
 
-      <main
-        ref={shellRef}
-        id="home"
-        className="poster-shell"
-        style={{ '--home-bg': `url(${backgroundImg})` }}
-        aria-label="Sasira streetwear home"
-      >
-        <section className="poster-copy" aria-label="Sasira apparel headline">
-          <p className="vertical-title reveal-title">
-            <span>SASIRA</span>
-          </p>
-          <p className="vertical-apparel reveal-title delay-1">
-            <span>APPAREL</span>
-          </p>
-        </section>
+      <div className="page-content" style={{ position: 'relative' }}>
+        <div className="poster-copy-wrapper" style={{ position: 'absolute', top: 0, bottom: '4rem', left: 0, right: 0, pointerEvents: 'none', zIndex: 30 }}>
+          <section className="poster-copy" aria-label="Sasira apparel headline">
+            <p className="vertical-title reveal-title">
+              <span>SASIRA</span>
+            </p>
+            <p className="vertical-apparel reveal-title delay-1">
+              <span>APPAREL</span>
+            </p>
+          </section>
+        </div>
 
-        <section className="model-stage" aria-label="Inovasi streetwear dari Sasirangan">
+        <main
+          ref={shellRef}
+          id="home"
+          className="poster-shell"
+          style={{ '--home-bg': `url(${backgroundImg})` }}
+          aria-label="Sasira streetwear home"
+        >
+          <section className="model-stage" aria-label="Inovasi streetwear dari Sasirangan">
           <img
             src={jacketImg}
             alt="Inovasi streetwear dari Sasirangan"
@@ -580,6 +602,32 @@ Apakah produk ini masih tersedia? Terima kasih!`
         </div>
       </section>
 
+      <section className="about-shell philosophy-shell" id="philosophy" aria-label="Philosophy & History" style={{ '--about-bg': `url(${aboutBg})` }}>
+        <div className="about-inner reveal-on-scroll">
+          <header className="about-header reveal-on-scroll">
+            <p className="eyebrow text-pop">Warisan & Identitas</p>
+            <h2 className="about-title">PHILOSOPHY</h2>
+            <p className="about-lead text-pop">Lebih dari sekadar kain, ini adalah identitas kultural yang direkonstruksi.</p>
+          </header>
+        </div>
+
+        <div className="philosophy-marquee reveal-on-scroll">
+            <div className="philosophy-track">
+              {[...historyData, ...historyData].map((item, i) => (
+                <article className="philosophy-card" key={`${item.title}-${i}`}>
+                  <div className="phil-card-header">
+                    <span className="phil-year">{item.year}</span>
+                    <h4>{item.title}</h4>
+                  </div>
+                  <p className="phil-text">
+                    {item.content}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+      </section>
+
       <section className="about-shell" id="store" aria-label="Featured Products" style={{ '--about-bg': `url(${backgroundImg3})` }}>
         <div className="about-inner reveal-on-scroll">
           <header className="about-header reveal-on-scroll">
@@ -688,6 +736,7 @@ Apakah produk ini masih tersedia? Terima kasih!`
           })()}
         </div>
       </section>
+      </div>
       <Footer />
     </div>
   )
